@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsv2w5g6xylhs"]
-
-[ext_resource type="Script" path="res://scripts/DangerZone.cs" id="1_mofey"]
-
-[node name="DangerZone" type="Area2D"]
-script = ExtResource("1_mofey")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
