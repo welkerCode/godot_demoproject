@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=4 uid="uid://dw5n4pc8xsdim"]
+[gd_scene load_steps=7 format=4 uid="uid://dw5n4pc8xsdim"]
 
+[ext_resource type="PackedScene" uid="uid://c75y1hoaso4h6" path="res://scenes/Player.tscn" id="1_phboy"]
 [ext_resource type="Texture2D" uid="uid://bjjvwhul428xh" path="res://Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="2_tk76n"]
-[ext_resource type="Script" path="res://scripts/Player.cs" id="3_0b60l"]
-[ext_resource type="Texture2D" uid="uid://bvi61f1800tkl" path="res://Pixel Adventure 1/Free/Main Characters/Ninja Frog/Idle (32x32).png" id="3_gved7"]
 [ext_resource type="Script" path="res://scripts/Water.cs" id="3_m1xl8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rofr5"]
@@ -287,95 +286,7 @@ physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_rofr5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7w4mw"]
-size = Vector2(47, 46)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rfkvb"]
-atlas = ExtResource("3_gved7")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c2k4h"]
-atlas = ExtResource("3_gved7")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7sjmc"]
-atlas = ExtResource("3_gved7")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gybi2"]
-atlas = ExtResource("3_gved7")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ylqqj"]
-atlas = ExtResource("3_gved7")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ng1i1"]
-atlas = ExtResource("3_gved7")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t84iy"]
-atlas = ExtResource("3_gved7")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2kufu"]
-atlas = ExtResource("3_gved7")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyhug"]
-atlas = ExtResource("3_gved7")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yhk3c"]
-atlas = ExtResource("3_gved7")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hx2cj"]
-atlas = ExtResource("3_gved7")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_afy7q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rfkvb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c2k4h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7sjmc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gybi2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ylqqj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ng1i1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t84iy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2kufu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uyhug")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yhk3c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hx2cj")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk425"]
-size = Vector2(33, 20)
+size = Vector2(3596, 46)
 
 [node name="Game" type="Node2D"]
 
@@ -390,22 +301,10 @@ script = ExtResource("3_m1xl8")
 [node name="Area2D" type="Area2D" parent="Water"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Water/Area2D"]
-position = Vector2(66, -18)
+position = Vector2(636, 88)
 shape = SubResource("RectangleShape2D_7w4mw")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("3_0b60l")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(68, -89)
-sprite_frames = SubResource("SpriteFrames_afy7q")
-frame_progress = 0.527894
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(68.5, -84)
-shape = SubResource("RectangleShape2D_wk425")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(68, -83)
+[node name="Player" parent="." instance=ExtResource("1_phboy")]
+position = Vector2(-58, -24)
 
 [connection signal="body_entered" from="Water/Area2D" to="Water" method="_on_area_2d_body_entered"]

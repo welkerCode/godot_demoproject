@@ -78,7 +78,7 @@ public partial class Player : CharacterBody2D
 
 		if (dash_ready && Input.IsActionJustPressed("ui_dash"))
 		{
-			GD.Print("dashing!!!!");
+			 
 			if (direction == "right")
 			{
 				velocity.X += dashSpeed;
@@ -111,13 +111,13 @@ public partial class Player : CharacterBody2D
 	public void reset_player()
 	{
 		// Reset the position
-		//Vector2 position = Position;
-		//position.X = 1;
-		//position.Y = 1;
-		//Position = position;
+		Vector2 position = Position;
+		position.X = 1;
+		position.Y = -20;
+		Position = position;
 	
 		// Reset the controls so we can play again
-		//can_control = true;
+		can_control = true;
 	}
 
 	public void handleDanger(){
