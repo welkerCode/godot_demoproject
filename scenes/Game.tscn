@@ -308,7 +308,31 @@ shape = SubResource("RectangleShape2D_7w4mw")
 [node name="Player" parent="." instance=ExtResource("3_hm1e4")]
 position = Vector2(-58, -24)
 
-[node name="Pickup_banana1" parent="." instance=ExtResource("4_o0xqx")]
-position = Vector2(188, -21)
+[node name="Pickup_banana" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(127, -29)
+
+[node name="Pickup_banana2" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(494, -127)
+
+[node name="Pickup_banana3" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(729, -124)
+
+[node name="Pickup_banana4" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(1219, -124)
+
+[node name="Pickup_banana5" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(1153, -222)
+
+[node name="Pickup_banana6" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(936, -236)
+
+[node name="Pickup_banana7" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(-146, -109)
+
+[node name="Pickup_banana8" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(1050, -49)
+
+[node name="Pickup_banana9" parent="." instance=ExtResource("4_o0xqx")]
+position = Vector2(280, -137)
 
 [connection signal="body_entered" from="DangerZone/Area2D" to="DangerZone" method="_on_area_2d_body_entered"]

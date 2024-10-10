@@ -14,6 +14,7 @@ public partial class Player : CharacterBody2D
 	[Export] private bool can_control = true;
 	[Export] private int origin_x = 0;
 	[Export] private int origin_y = 0;
+	[Export] private int score = 0;
 
 
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
@@ -24,6 +25,7 @@ public partial class Player : CharacterBody2D
 		double_jump_ready = true;
 		dash_ready = true;
 		direction = "right";
+		score = 0;
 		GD.Print("Player Ready");
 
 		//Area2D DangerZone_area = GetNode<Area2D>("../Area2D");
@@ -46,13 +48,13 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X += speed;  // Move right
 			direction = "right";
-			GD.Print("moving right");
+			//GD.print("moving right");
 		}
 		if (Input.IsKeyPressed(Key.Left))
 		{
 			velocity.X -= speed;  // Move left
 			direction = "left";
-			GD.Print("moving left");
+			//GD.print("moving left");
 		}
 
 		// Apply gravity
@@ -67,12 +69,12 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor() && Input.IsActionJustPressed("ui_up"))
 		{
 			velocity.Y = -jumpForce;  // Jump
-			GD.Print("Moving up");
+			//GD.print("Moving up");
 		}
 		if (!IsOnFloor() && double_jump_ready && Input.IsActionJustPressed("ui_up"))
 		{
 			velocity.Y = -jumpForce; // Doublejump
-			GD.Print("Double jump");
+			//GD.print("Double jump");
 			double_jump_ready = false;
 		}
 
@@ -95,6 +97,12 @@ public partial class Player : CharacterBody2D
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public void update_score(int points)
+	{
+		score += points;
+		GD.Print("Score: " + score);
 	}
 
 	public void OnDangerZoneEntered()
@@ -121,7 +129,7 @@ public partial class Player : CharacterBody2D
 	}
 
 	public void handleDanger(){
-		GD.Print("EnteredDanger");
+		//GD.print("EnteredDanger");
 		var visible = false; // TODO:Implement visibility???
 		
 		can_control = true;
