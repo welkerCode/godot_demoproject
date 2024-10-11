@@ -1,0 +1,145 @@
+[gd_scene load_steps=22 format=3 uid="uid://dt1nr8sx8kasc"]
+
+[ext_resource type="Script" path="res://scripts/pickups/PickupPineapple.cs" id="1_xjr1d"]
+[ext_resource type="Texture2D" uid="uid://cj6wcu52fos7k" path="res://Pixel Adventure 1/Free/Items/Fruits/Pineapple.png" id="2_qtmxt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1vsev"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3vbg"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eqf6"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2koa"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrlex"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6msbh"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y10vv"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1a0x"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3wyk"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ik48"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pebxm"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw443"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jx3n"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isbnp"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfegp"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4073"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mth78"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bibw"]
+atlas = ExtResource("2_qtmxt")
+region = Rect2(512, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0ijn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3vbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eqf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2koa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrlex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6msbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y10vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1a0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3wyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ik48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pebxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw443")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jx3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isbnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfegp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4073")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mth78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bibw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Pickup_pineapple" type="Area2D"]
+script = ExtResource("1_xjr1d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1vsev")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g0ijn")
+autoplay = "default"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
