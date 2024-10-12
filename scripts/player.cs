@@ -15,13 +15,16 @@ public partial class Player : CharacterBody2D
 	[Export] private int origin_x = 0;
 	[Export] private int origin_y = 0;
 	[Export] private int score = 0;
+	private string state = "Idle";
 
+	private AnimatedSprite2D _animatedSprite;
 
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
 
 
 	public override void _Ready()
 	{
+		_animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		double_jump_ready = true;
 		dash_ready = true;
 		direction = "right";
@@ -42,6 +45,41 @@ public partial class Player : CharacterBody2D
 		Vector2 velocity = Velocity;
 
 		velocity.X = 0;
+
+
+		switch (state)
+		{
+			case "Idle":
+				GD.Print("Idle...");
+				_animatedSprite.Play("idle");
+
+				if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right"))){
+					state = "Run";
+				}
+				break;
+
+			case "Run":
+				_animatedSprite.Play("run");
+				if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right"))){
+					state = "Idle";
+				}
+				break;
+
+			case "Jump":
+				break;
+
+			case "Double Jump":
+				break;
+
+			case "Wall Jump":
+				break;
+
+			case "Fall":
+				break;
+			
+			case "Hit":
+				break;
+		}
 
 		// Get input for movement
 		if (Input.IsActionPressed("move_right"))
