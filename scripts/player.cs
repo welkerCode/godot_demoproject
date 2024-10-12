@@ -51,12 +51,19 @@ public partial class Player : CharacterBody2D
 		{
 			case "Idle":
 
-				if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+				if (Input.IsActionJustPressed("move_jump"))
+				{
+					state = "Jump";
+					_animatedSprite.Play("jump");
+				}
+				else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
 				{
 					state = "Run";
 					_animatedSprite.Play("run");
 				}
+				
 				break;
+				
 
 			case "Run":
 
@@ -66,7 +73,7 @@ public partial class Player : CharacterBody2D
 					_animatedSprite.Play("fall");
 				}
 				
-				if (Input.IsActionJustPressed("ui_up"))
+				if (Input.IsActionJustPressed("move_jump"))
 				{
 					state = "Jump";
 					_animatedSprite.Play("jump");
@@ -95,7 +102,7 @@ public partial class Player : CharacterBody2D
 				}
 				else 
 				{
-					if (double_jump_ready && Input.IsActionJustPressed("ui_up")){
+					if (double_jump_ready && Input.IsActionJustPressed("move_jump")){
 						state = "Double Jump";
 						_animatedSprite.Play("double jump");
 					}
@@ -142,7 +149,7 @@ public partial class Player : CharacterBody2D
 					}
 				}
 				else {
-					if (double_jump_ready && Input.IsActionJustPressed("ui_up"))
+					if (double_jump_ready && Input.IsActionJustPressed("move_jump"))
 					{
 						state = "Double Jump";
 						_animatedSprite.Play("double jump");
@@ -154,12 +161,21 @@ public partial class Player : CharacterBody2D
 				break;
 		}
 
+		if (direction == "left")
+		{
+			_animatedSprite.Scale = new Vector2(-1, 1); // Face left
+		}
+
+		if (direction == "right")
+		{
+			_animatedSprite.Scale = new Vector2(1, 1); //Face right
+		}
+
 		// Get input for movement
 		if (Input.IsActionPressed("move_right"))
 		{
 			velocity.X += speed;  // Move right
 			direction = "right";
-			//GD.print("moving right");
 		}
 		if (Input.IsActionPressed("move_left"))
 		{
@@ -177,12 +193,12 @@ public partial class Player : CharacterBody2D
 		}
 
 		// Jumping
-		if (IsOnFloor() && Input.IsActionJustPressed("ui_up"))
+		if (IsOnFloor() && Input.IsActionJustPressed("move_jump"))
 		{
 			velocity.Y = -jumpForce;  // Jump
 			//GD.print("Moving up");
 		}
-		if (!IsOnFloor() && double_jump_ready && Input.IsActionJustPressed("ui_up"))
+		if (!IsOnFloor() && double_jump_ready && Input.IsActionJustPressed("move_jump"))
 		{
 			velocity.Y = -jumpForce; // Doublejump
 			//GD.print("Double jump");
