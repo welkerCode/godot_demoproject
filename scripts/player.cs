@@ -44,13 +44,13 @@ public partial class Player : CharacterBody2D
 		velocity.X = 0;
 
 		// Get input for movement
-		if (Input.IsActionPressed("ui_right"))
+		if (Input.IsActionPressed("move_right"))
 		{
 			velocity.X += speed;  // Move right
 			direction = "right";
 			//GD.print("moving right");
 		}
-		if (Input.IsKeyPressed(Key.Left))
+		if (Input.IsActionPressed("move_left"))
 		{
 			velocity.X -= speed;  // Move left
 			direction = "left";

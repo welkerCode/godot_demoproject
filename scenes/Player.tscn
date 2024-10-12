@@ -106,7 +106,8 @@ position = Vector2(-2, -3)
 sprite_frames = SubResource("SpriteFrames_227pt")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.218105
+frame = 9
+frame_progress = 0.683267
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(2, 2)
