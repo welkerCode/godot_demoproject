@@ -50,31 +50,104 @@ public partial class Player : CharacterBody2D
 		switch (state)
 		{
 			case "Idle":
-				GD.Print("Idle...");
-				_animatedSprite.Play("idle");
 
-				if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right"))){
+				if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+				{
 					state = "Run";
+					_animatedSprite.Play("run");
 				}
 				break;
 
 			case "Run":
-				_animatedSprite.Play("run");
-				if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right"))){
+
+				if (!IsOnFloor())
+				{
+					state = "Fall";
+					_animatedSprite.Play("fall");
+				}
+				
+				if (Input.IsActionJustPressed("ui_up"))
+				{
+					state = "Jump";
+					_animatedSprite.Play("jump");
+				}
+					
+				else if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
+				{
 					state = "Idle";
+					_animatedSprite.Play("idle");
 				}
 				break;
 
 			case "Jump":
+				if (IsOnFloor())
+				{
+					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
+					{
+						state = "Idle";
+						_animatedSprite.Play("idle");
+					}
+					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+					{
+						state = "Run";
+						_animatedSprite.Play("run");
+					}
+				}
+				else 
+				{
+					if (double_jump_ready && Input.IsActionJustPressed("ui_up")){
+						state = "Double Jump";
+						_animatedSprite.Play("double jump");
+					}
+					else if (velocity.Y > 0)
+					{
+						state = "Fall";
+						_animatedSprite.Play("fall");
+					}
+
+				}
 				break;
 
 			case "Double Jump":
+				if (IsOnFloor())
+				{
+					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
+					{
+						state = "Idle";
+						_animatedSprite.Play("idle");
+					}
+					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+					{
+						state = "Run";
+						_animatedSprite.Play("run");
+					}
+				}
 				break;
 
 			case "Wall Jump":
 				break;
 
 			case "Fall":
+				if (IsOnFloor())
+				{
+					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
+					{
+						state = "Idle";
+						_animatedSprite.Play("idle");
+					}
+					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+					{
+						state = "Run";
+						_animatedSprite.Play("run");
+					}
+				}
+				else {
+					if (double_jump_ready && Input.IsActionJustPressed("ui_up"))
+					{
+						state = "Double Jump";
+						_animatedSprite.Play("double jump");
+					}
+				}
 				break;
 			
 			case "Hit":
