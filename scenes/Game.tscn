@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=4 uid="uid://dw5n4pc8xsdim"]
 
-[ext_resource type="Texture2D" uid="uid://bjjvwhul428xh" path="res://Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="1_lahwk"]
+[ext_resource type="Texture2D" uid="uid://bjjvwhul428xh" path="res://art/Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="1_lahwk"]
 [ext_resource type="Script" path="res://scripts/DangerZone.cs" id="2_yxxfm"]
 [ext_resource type="PackedScene" uid="uid://cle2utb86wvk3" path="res://scenes/Pickups/Pickup_apple.tscn" id="4_0el4n"]
 [ext_resource type="PackedScene" uid="uid://cr0gd3ecwyfst" path="res://scenes/Pickups/Pickup_banana.tscn" id="4_o0xqx"]
@@ -303,6 +303,17 @@ size = Vector2(3596, 46)
 
 [node name="Player" parent="." instance=ExtResource("11_u1w76")]
 position = Vector2(3, -3)
+speed = 200.0
+jumpForce = 300.0
+dashSpeed = 2000.0
+gravity = 980.0
+direction = "right"
+double_jump_ready = true
+dash_ready = true
+can_control = true
+origin_x = 0
+origin_y = 0
+score = 0
 
 [node name="Level1" type="TileMapLayer" parent="."]
 position = Vector2(63, 19)
