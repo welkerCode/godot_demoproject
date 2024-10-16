@@ -46,7 +46,7 @@ public partial class Player : CharacterBody2D
 
 		velocity.X = 0;
 
-
+		/*
 		switch (state)
 		{
 			case "Idle":
@@ -56,7 +56,7 @@ public partial class Player : CharacterBody2D
 					state = "Jump";
 					_animatedSprite.Play("jump");
 				}
-				else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
+				else if (IsRunning())
 				{
 					state = "Run";
 					_animatedSprite.Play("run");
@@ -79,7 +79,7 @@ public partial class Player : CharacterBody2D
 					_animatedSprite.Play("jump");
 				}
 					
-				else if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
+				else if (IsIdle())
 				{
 					state = "Idle";
 					_animatedSprite.Play("idle");
@@ -87,19 +87,17 @@ public partial class Player : CharacterBody2D
 				break;
 
 			case "Jump":
-				if (IsOnFloor())
+				if (IsIdle())
 				{
-					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
-					{
-						state = "Idle";
-						_animatedSprite.Play("idle");
-					}
-					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
-					{
-						state = "Run";
-						_animatedSprite.Play("run");
-					}
+					state = "Idle";
+					_animatedSprite.Play("idle");
 				}
+				else if (IsRunning())
+				{
+					state = "Run";
+					_animatedSprite.Play("run");
+				}
+				
 				else 
 				{
 					if (double_jump_ready && Input.IsActionJustPressed("move_jump")){
@@ -116,18 +114,15 @@ public partial class Player : CharacterBody2D
 				break;
 
 			case "Double Jump":
-				if (IsOnFloor())
+				if (IsIdle())
 				{
-					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
-					{
-						state = "Idle";
-						_animatedSprite.Play("idle");
-					}
-					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
-					{
-						state = "Run";
-						_animatedSprite.Play("run");
-					}
+					state = "Idle";
+					_animatedSprite.Play("idle");
+				}
+				else if (IsRunning())
+				{
+					state = "Run";
+					_animatedSprite.Play("run");
 				}
 				break;
 
@@ -135,18 +130,16 @@ public partial class Player : CharacterBody2D
 				break;
 
 			case "Fall":
-				if (IsOnFloor())
+				
+				if (IsIdle())
 				{
-					if (!(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")))
-					{
-						state = "Idle";
-						_animatedSprite.Play("idle");
-					}
-					else if ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right")))
-					{
-						state = "Run";
-						_animatedSprite.Play("run");
-					}
+					state = "Idle";
+					_animatedSprite.Play("idle");
+				}
+				else if (IsRunning())
+				{
+					state = "Run";
+					_animatedSprite.Play("run");
 				}
 				else {
 					if (double_jump_ready && Input.IsActionJustPressed("move_jump"))
@@ -160,6 +153,8 @@ public partial class Player : CharacterBody2D
 			case "Hit":
 				break;
 		}
+
+		*/
 
 		if (direction == "left")
 		{
@@ -224,6 +219,28 @@ public partial class Player : CharacterBody2D
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public bool IsIdle()
+	{
+		/*
+		A simple function that returns true if the player is on the floor and not moving
+		*/
+
+
+		// Return true if we are not moving left or right, and on the floor
+		return !(Input.IsActionPressed("move_left")) && !(Input.IsActionPressed("move_right")) && IsOnFloor();
+	}
+
+	public bool IsRunning()
+	{
+		/*
+		A simple function that returns true if the player is on the floor and moving
+		*/
+
+
+		// Return true if we are moving left or right, and on the floor
+		return ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right"))) && IsOnFloor();
 	}
 
 	public void update_score(int points)
