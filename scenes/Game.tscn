@@ -315,6 +315,7 @@ position = Vector2(783, 31)
 script = ExtResource("2_yxxfm")
 
 [node name="Area2D" type="Area2D" parent="DangerZone"]
+position = Vector2(5, 113)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DangerZone/Area2D"]
 light_mask = 0
@@ -352,7 +353,7 @@ position = Vector2(2831, -169)
 light_mask = 512
 visibility_layer = 512
 z_index = -1
-position = Vector2(1503, -54)
+position = Vector2(1503, -53)
 scale = Vector2(53.75, 21.2812)
 texture = ExtResource("1_qhdsc")
 

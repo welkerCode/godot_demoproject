@@ -229,6 +229,10 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	public void ResetDoubleJump(){
+		double_jump_ready = true;
+	}
+
 	public bool IsIdle()
 	{
 		/*

@@ -38,6 +38,10 @@ public partial class FallingState : State
 			{
 				return new DoubleJumpingState(animatedSprite2D);
 			}
+			// If we are touching a wall
+			if(p.IsOnWall()){
+				return new WallSlideState(animatedSprite2D);
+			}
 			// If we are falling down
 			else if(p.Velocity.Y > 0){
 				return new FallingState(animatedSprite2D);
