@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public partial class RunningState : State
+public partial class FallingState : State
 {
 
 	private AnimatedSprite2D animatedSprite2D;
 
 
-	public RunningState(AnimatedSprite2D animatedSprite2D)
+	public FallingState(AnimatedSprite2D animatedSprite2D)
 	{
 		this.animatedSprite2D = animatedSprite2D;
 	}
@@ -15,14 +15,14 @@ public partial class RunningState : State
     public override void enter_state()
 	{
 		// This will contain the actions that should occur upon entering the state
-		GD.Print("Entering Running State");
-		animatedSprite2D.Play("running");
+		GD.Print("Entering Falling State");
+		animatedSprite2D.Play("fall");
 	}
 
 	public override void exit_state()
 	{
 		// This will contain the actions that should occur upon exiting the state
-		GD.Print("Leaving Running State");
+		GD.Print("Leaving Falling State");
 	}
 
 	public override State check_state_change(Node entity)
@@ -33,19 +33,22 @@ public partial class RunningState : State
 			// Cast the entity as a player
 			Player p = entity as Player;
 
-			// If we are jumping
-			if (p.IsJumping()){
-				return new JumpingState(animatedSprite2D); // Return the running state
+			// If we are double jumping
+			if(p.IsDoubleJumping())
+			{
+				return new DoubleJumpingState(animatedSprite2D);
 			}
-
-			// If we are falling
-			else if (p.Velocity.Y > 0){
-				return new FallingState(animatedSprite2D); // Return the running state
+			// If we are falling down
+			else if(p.Velocity.Y > 0){
+				return new FallingState(animatedSprite2D);
 			}
-			
-			// If we are idling
+			// If we are running
+			else if(p.IsRunning()){
+				return new RunningState(animatedSprite2D); // Return the jumping state
+			}
+			// If we are idle
 			else if(p.IsIdle()){
-				return new IdleState(animatedSprite2D); // Return the running state
+				return new IdleState(animatedSprite2D);
 			}
 
 		}

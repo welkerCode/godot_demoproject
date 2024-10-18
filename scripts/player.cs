@@ -251,6 +251,28 @@ public partial class Player : CharacterBody2D
 		return ((Input.IsActionPressed("move_left")) || (Input.IsActionPressed("move_right"))) && IsOnFloor();
 	}
 
+	public bool IsJumping()
+	{
+		/*
+		A simple function that returns true if the player is on the floor and jumping
+		*/
+
+
+		// Return true if we are jumping
+		return (Input.IsActionJustPressed("move_jump") && IsOnFloor());
+	}
+
+	public bool IsDoubleJumping()
+	{
+		/*
+		A simple function that returns true if the player is double jumping
+		*/
+
+
+		// Return true if we are double jumping
+		return (Input.IsActionJustPressed("move_jump") && !IsOnFloor() && double_jump_ready);
+	}
+
 	public void update_score(int points)
 	{
 		score += points;
