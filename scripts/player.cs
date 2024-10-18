@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D
 	[Export] private int score = 0;
 	private string state = "Idle";
 
+	private StateMachine stateMachine;
+
 	private AnimatedSprite2D _animatedSprite;
 
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
@@ -29,6 +31,9 @@ public partial class Player : CharacterBody2D
 		dash_ready = true;
 		direction = "right";
 		score = 0;
+		stateMachine = new StateMachine();
+		IdleState idleState = new IdleState(this._animatedSprite);
+		stateMachine.ChangeState(idleState);
 		GD.Print("Player Ready");
 
 		//Area2D DangerZone_area = GetNode<Area2D>("../Area2D");
@@ -45,6 +50,9 @@ public partial class Player : CharacterBody2D
 		Vector2 velocity = Velocity;
 
 		velocity.X = 0;
+
+		// Call the state machine
+		stateMachine.Update(this);
 
 		/*
 		switch (state)

@@ -304,17 +304,6 @@ size = Vector2(3596, 46)
 
 [node name="Player" parent="." instance=ExtResource("11_u1w76")]
 position = Vector2(3, -3)
-speed = 200.0
-jumpForce = 300.0
-dashSpeed = 2000.0
-gravity = 980.0
-direction = "right"
-double_jump_ready = true
-dash_ready = true
-can_control = true
-origin_x = 0
-origin_y = 0
-score = 0
 
 [node name="Level1" type="TileMapLayer" parent="."]
 position = Vector2(63, 19)

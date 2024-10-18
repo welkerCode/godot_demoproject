@@ -327,7 +327,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_jge4o")
 }],
 "loop": true,
-"name": &"run",
+"name": &"running",
 "speed": 15.0
 }, {
 "frames": [{
@@ -364,7 +364,7 @@ debug_color = Color(2.79158e-06, 0.646879, 0.226, 0.42)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -2)
 sprite_frames = SubResource("SpriteFrames_227pt")
-animation = &"idle"
+animation = &"running"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]

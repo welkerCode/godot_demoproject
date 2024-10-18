@@ -26,7 +26,8 @@ public partial class Pickup : Area2D
 		if (body is CharacterBody2D)
 		{
 			GD.Print("A CharacterBody2D has entered the pickup...");
-			if (body is Player){
+			if (body is Player)
+			{
 				GD.Print("The Player has entered...time to give points...");
 				Player p = body as Player;
 				p.update_score(Value);
