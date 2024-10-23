@@ -33,6 +33,12 @@ public partial class FallingState : State
 			// Cast the entity as a player
 			Player p = entity as Player;
 
+			// First, update the direction of the sprite if needed
+			Vector2 new_direction = this.updateSpriteDirection();
+			if(new_direction != new Vector2(0,0)){
+				animatedSprite2D.Scale = new_direction;
+			}
+
 			// If we are double jumping
 			if(p.IsDoubleJumping())
 			{

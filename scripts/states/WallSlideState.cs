@@ -33,10 +33,18 @@ public partial class WallSlideState : State
 			// Cast the entity as a player
 			Player p = entity as Player;
 
+			// First, update the direction of the sprite if needed
+			Vector2 new_direction = this.updateSpriteDirection();
+			if(new_direction != new Vector2(0,0)){
+				animatedSprite2D.Scale = new_direction;
+			}
+
 			// If we jump from this state, then immediately enter jumping state
 
 			// If we are still on the wall
 			if (p.IsOnWall()){
+
+				GD.Print("Should be sitting on wall...");
 
 				// Stop moving if wall sliding (for now)
 				// TODO: reduce velocity, not stop it)
@@ -45,18 +53,20 @@ public partial class WallSlideState : State
 				velocity.Y = 0;
 
 				// If we have clicked the 'jump' button
-				if (p.IsJumping()){
+				if (!p.IsOnFloor() && Input.IsActionJustPressed("move_jump")){
+
+					GD.Print("Wall JUMPING!!!!");
 
 					// Change velocity to direction opposite of wall
 					if (Input.IsActionPressed("move_left")){
-						velocity.X = -200;
+						velocity.X = 200;
 					}
 					else {
-						velocity.X = 200;
+						velocity.X = -200;
 					}
 
 					// Restore original y velocity, because jumping
-					velocity.Y = oldVelocity;
+					velocity.Y = oldVelocity / 2;
 					p.Velocity = velocity;
 
 					// Reset double_jump_ready
@@ -65,6 +75,8 @@ public partial class WallSlideState : State
 					// change animation
 					return new JumpingState(animatedSprite2D); //
 				}
+
+				p.Velocity = velocity;
 
 			}
 

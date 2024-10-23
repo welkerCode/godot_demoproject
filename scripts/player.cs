@@ -4,233 +4,144 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	// Movement variables
-	[Export] private float speed = 200f;  // Player speed
-	[Export] private float jumpForce = 300f;  // Jump force
-	[Export] private float dashSpeed = 2000; // Dash speed
-	[Export] private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();  // Gravity force
-	[Export] private string direction = "right";
-	[Export] private bool double_jump_ready = true;
-	[Export] private bool dash_ready = true;
-	[Export] private bool can_control = true;
-	[Export] private int origin_x = 0;
-	[Export] private int origin_y = 0;
-	[Export] private int score = 0;
-	private string state = "Idle";
-
-	private StateMachine stateMachine;
-
-	private AnimatedSprite2D _animatedSprite;
+	[Export] private float _run_speed = 200f;  // Player speed
+	[Export] private float _jump_force = 300f;  // Jump force
+	[Export] private float _dash_speed = 2000; // Dash speed
+	[Export] private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();  // Gravity force
+	[Export] private int _originX = 0;
+	[Export] private int _originY = 0;
+	[Export] private int _score = 0;
+	[Export] private string _direction = "right";
+	[Export] private bool _double_jump_ready = true;
+	[Export] private bool _dash_ready = true;
+	[Export] private bool _can_control = true;
+	
+	public Vector2 _next_velocity;
+	private StateMachine _state_machine;
+	private State _state;
+	private AnimatedSprite2D _animated_sprite;
 
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
 
+	private Vector2 _velocity;
 
 	public override void _Ready()
 	{
-		_animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		double_jump_ready = true;
-		dash_ready = true;
-		direction = "right";
-		score = 0;
-		stateMachine = new StateMachine();
-		IdleState idleState = new IdleState(this._animatedSprite);
-		stateMachine.ChangeState(idleState);
-		GD.Print("Player Ready");
+		// Initialize physics variables
+		_next_velocity.X = 0;
+		_next_velocity.Y = 0;
 
-		//Area2D DangerZone_area = GetNode<Area2D>("../Area2D");
-		//DangerZone_area.Connect("danger_zone_entered", this, nameof(OnDangerZoneEntered));
+		// Initialize state machine
+		_direction = "right";
+		_animated_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_state_machine = new StateMachine();
+		IdleState idleState = new IdleState(this._animated_sprite);
+		_state_machine.ChangeState(idleState);
+
+		// Initialize player_control variable		
+		_double_jump_ready = true;
+		_dash_ready = true;
+		
+		// Initialize score variables
+		_score = 0;
+		
+		GD.Print("Player Ready");
 	}
 
 
-	public override void _PhysicsProcess(double delta)
-	{
-		// If you can no longer control the character, then return, don't do anything
-		//if (can_control != true){return;}
-
-		// Reset horizontal movement
-		Vector2 velocity = Velocity;
-
-		velocity.X = 0;
-
-		// Call the state machine
-		stateMachine.Update(this);
+	public Vector2 updateSpriteDirection(){
 
 		/*
-		switch (state)
-		{
-			case "Idle":
-
-				if (Input.IsActionJustPressed("move_jump"))
-				{
-					state = "Jump";
-					_animatedSprite.Play("jump");
-				}
-				else if (IsRunning())
-				{
-					state = "Run";
-					_animatedSprite.Play("run");
-				}
-				
-				break;
-				
-
-			case "Run":
-
-				if (!IsOnFloor())
-				{
-					state = "Fall";
-					_animatedSprite.Play("fall");
-				}
-				
-				if (Input.IsActionJustPressed("move_jump"))
-				{
-					state = "Jump";
-					_animatedSprite.Play("jump");
-				}
-					
-				else if (IsIdle())
-				{
-					state = "Idle";
-					_animatedSprite.Play("idle");
-				}
-				break;
-
-			case "Jump":
-				if (IsIdle())
-				{
-					state = "Idle";
-					_animatedSprite.Play("idle");
-				}
-				else if (IsRunning())
-				{
-					state = "Run";
-					_animatedSprite.Play("run");
-				}
-				
-				else 
-				{
-					if (double_jump_ready && Input.IsActionJustPressed("move_jump")){
-						state = "Double Jump";
-						_animatedSprite.Play("double jump");
-					}
-					else if (velocity.Y > 0)
-					{
-						state = "Fall";
-						_animatedSprite.Play("fall");
-					}
-
-				}
-				break;
-
-			case "Double Jump":
-				if (IsIdle())
-				{
-					state = "Idle";
-					_animatedSprite.Play("idle");
-				}
-				else if (IsRunning())
-				{
-					state = "Run";
-					_animatedSprite.Play("run");
-				}
-				break;
-
-			case "Wall Jump":
-				break;
-
-			case "Fall":
-				
-				if (IsIdle())
-				{
-					state = "Idle";
-					_animatedSprite.Play("idle");
-				}
-				else if (IsRunning())
-				{
-					state = "Run";
-					_animatedSprite.Play("run");
-				}
-				else {
-					if (double_jump_ready && Input.IsActionJustPressed("move_jump"))
-					{
-						state = "Double Jump";
-						_animatedSprite.Play("double jump");
-					}
-				}
-				break;
-			
-			case "Hit":
-				break;
-		}
-
+		This function should be called by the state machine to change direction based on user input
+		
+		Input: N/A
+		Output: Vector2
+			-1 in the X field indicates moving left
+			1 in the X field indicates moving right
+		
 		*/
-
-		if (direction == "left")
-		{
-			_animatedSprite.Scale = new Vector2(-1, 1); // Face left
+	
+		if (Input.IsActionPressed("move_left")){
+			return new Vector2(-1, 1);
+		}
+		else if (Input.IsActionPressed("move_right")){
+			return new Vector2(1, 1);
 		}
 
-		if (direction == "right")
-		{
-			_animatedSprite.Scale = new Vector2(1, 1); //Face right
-		}
+		return new Vector2(0, 0);
+	}
 
-		// Get input for movement
+	public override void _PhysicsProcess(double delta)
+	{
+		// Reset horizontal movement  TODO: Remove
+		_next_velocity = Velocity;
+		_next_velocity.X = 0;
+
+		// Call the state machine
+		_state_machine.Update(this);
+
+		// Get input for movement  TODO: Remove
 		if (Input.IsActionPressed("move_right"))
 		{
-			velocity.X += speed;  // Move right
-			direction = "right";
+			_next_velocity.X += _run_speed;  // Move right
+			_direction = "right";
 		}
 		if (Input.IsActionPressed("move_left"))
 		{
-			velocity.X -= speed;  // Move left
-			direction = "left";
-			//GD.print("moving left");
+			_next_velocity.X -= _run_speed;  // Move left
+			_direction = "left";
 		}
 
 		// Apply gravity
-		velocity.Y += gravity * (float)delta;
+		_next_velocity.Y += _gravity * (float)delta;
 
+		// TODO: Remove
 		if (IsOnFloor())
 		{
-			double_jump_ready = true;
+			_double_jump_ready = true;
 		}
 
 		// Jumping
+		// TODO: Remove
 		if (IsOnFloor() && Input.IsActionJustPressed("move_jump"))
 		{
-			velocity.Y = -jumpForce;  // Jump
+			_next_velocity.Y = -_jump_force;  // Jump
 			//GD.print("Moving up");
 		}
-		if (!IsOnFloor() && double_jump_ready && Input.IsActionJustPressed("move_jump"))
+
+		// TODO: Remove
+		if (!IsOnFloor() && _double_jump_ready && Input.IsActionJustPressed("move_jump"))
 		{
-			velocity.Y = -jumpForce; // Doublejump
+			_next_velocity.Y = -_jump_force; // Doublejump
 			//GD.print("Double jump");
-			double_jump_ready = false;
+			_double_jump_ready = false;
 		}
 
-		if (dash_ready && Input.IsActionJustPressed("ui_dash"))
+		// TODO: Make a state, and then remove
+		if (_dash_ready && Input.IsActionJustPressed("ui_dash"))
 		{
 			 
-			if (direction == "right")
+			if (_direction == "right")
 			{
-				velocity.X += dashSpeed;
-				//dash_ready = false;
+				_next_velocity.X += _dash_speed;
+				//_dash_ready = false;
 			}
-			else if (direction == "left")
+			else if (_direction == "left")
 			{
-				velocity.X -= dashSpeed;
-				//dash_ready = false;
+				_next_velocity.X -= _dash_speed;
+				//_dash_ready = false;
 			}
 		}
 
-		Velocity = velocity;
+		// Update velocity
+		Velocity = _next_velocity;
 
 		// Move the player
 		MoveAndSlide();
 	}
 
 	public void ResetDoubleJump(){
-		double_jump_ready = true;
+		_double_jump_ready = true;
 	}
 
 	public bool IsIdle()
@@ -274,13 +185,13 @@ public partial class Player : CharacterBody2D
 
 
 		// Return true if we are double jumping
-		return (Input.IsActionJustPressed("move_jump") && !IsOnFloor() && double_jump_ready);
+		return (Input.IsActionJustPressed("move_jump") && !IsOnFloor() && _double_jump_ready);
 	}
 
 	public void update_score(int points)
 	{
-		score += points;
-		GD.Print("Score: " + score);
+		_score += points;
+		GD.Print("Score: " + _score);
 	}
 
 	public void OnDangerZoneEntered()
@@ -303,14 +214,14 @@ public partial class Player : CharacterBody2D
 		Position = position;
 	
 		// Reset the controls so we can play again
-		can_control = true;
+		_can_control = true;
 	}
 
 	public void handleDanger(){
 		//GD.print("EnteredDanger");
 		var visible = false; // TODO:Implement visibility???
 		
-		can_control = true;
+		_can_control = true;
 		var tree = GetTree();
 		tree.CreateTimer(1); // Timeout...wait for a second
 		reset_player();

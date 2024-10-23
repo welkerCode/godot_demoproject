@@ -353,7 +353,7 @@ position = Vector2(2831, -169)
 light_mask = 512
 visibility_layer = 512
 z_index = -1
-position = Vector2(1503, -53)
+position = Vector2(1450, -95)
 scale = Vector2(53.75, 21.2812)
 texture = ExtResource("1_qhdsc")
 

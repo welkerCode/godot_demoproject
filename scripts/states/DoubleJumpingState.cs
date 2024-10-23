@@ -33,8 +33,18 @@ public partial class DoubleJumpingState : State
 			// Cast the entity as a player
 			Player p = entity as Player;
 
+			// First, update the direction of the sprite if needed
+			Vector2 new_direction = this.updateSpriteDirection();
+			if(new_direction != new Vector2(0,0)){
+				animatedSprite2D.Scale = new_direction;
+			}
+
+			// If we are touching a wall
+			if(p.IsOnWall()){
+				return new WallSlideState(animatedSprite2D);
+			}
 			// If we are running
-			if(p.IsRunning()){
+			else if(p.IsRunning()){
 				return new RunningState(animatedSprite2D); // Return the jumping state
 			}
 			// If we are idle

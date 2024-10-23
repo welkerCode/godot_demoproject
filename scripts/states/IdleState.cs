@@ -33,6 +33,12 @@ public partial class IdleState : State
 			// Cast the entity as a player
 			Player p = entity as Player;
 
+			// First, update the direction of the sprite if needed
+			Vector2 new_direction = this.updateSpriteDirection();
+			if(new_direction != new Vector2(0,0)){
+				animatedSprite2D.Scale = new_direction;
+			}
+
 			// If we are jumping
 			if (p.IsJumping()){
 				return new JumpingState(animatedSprite2D); // Return the running state
