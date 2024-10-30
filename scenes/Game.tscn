@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dw5n4pc8xsdim"]
+[gd_scene load_steps=18 format=4 uid="uid://dw5n4pc8xsdim"]
 
 [ext_resource type="Texture2D" uid="uid://bjjvwhul428xh" path="res://Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="1_lahwk"]
 [ext_resource type="Texture2D" uid="uid://dqlgtifjxcfjt" path="res://Pixel Adventure 1/Free/Background/Brown.png" id="1_qhdsc"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dt1nr8sx8kasc" path="res://scenes/Pickups/Pickup_pineapple.tscn" id="10_ph2iq"]
 [ext_resource type="PackedScene" uid="uid://xkwtwphcn8da" path="res://scenes/Pickups/Pickup_strawberry.tscn" id="11_8i33r"]
 [ext_resource type="PackedScene" uid="uid://c75y1hoaso4h6" path="res://scenes/Player.tscn" id="11_u1w76"]
+[ext_resource type="PackedScene" uid="uid://co2dqpie0glxk" path="res://scenes/slime.tscn" id="13_0spaq"]
+[ext_resource type="PackedScene" uid="uid://dibcp1d1pmmtr" path="res://scenes/Robot.tscn" id="14_lrqhn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rofr5"]
 texture = ExtResource("1_lahwk")
@@ -356,5 +358,26 @@ z_index = -1
 position = Vector2(1450, -95)
 scale = Vector2(53.75, 21.2812)
 texture = ExtResource("1_qhdsc")
+
+[node name="Slime" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(2428, -21)
+
+[node name="Slime2" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(1866, 6)
+
+[node name="Slime3" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(2737, -138)
+
+[node name="Slime4" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(489, 9)
+
+[node name="Slime5" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(1394, -118)
+
+[node name="Slime6" parent="." instance=ExtResource("13_0spaq")]
+position = Vector2(999, -57)
+
+[node name="Robot" parent="." instance=ExtResource("14_lrqhn")]
+position = Vector2(2903, -143)
 
 [connection signal="body_entered" from="DangerZone/Area2D" to="DangerZone" method="_on_area_2d_body_entered"]

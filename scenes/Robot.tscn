@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dibcp1d1pmmtr"]
+
+[ext_resource type="Texture2D" uid="uid://drvjn1chm0yjg" path="res://art/custom/npcs/robot/robot_idle_0.png" id="1_l3y2y"]
+[ext_resource type="Texture2D" uid="uid://d1h0qgl4yme2q" path="res://art/custom/npcs/robot/robot_idle_1.png" id="2_gff1i"]
+[ext_resource type="Texture2D" uid="uid://bl6wttu4eljnj" path="res://art/custom/npcs/robot/robot_idle_2.png" id="3_lvhoj"]
+[ext_resource type="Texture2D" uid="uid://dp65xy7iv74s8" path="res://art/custom/npcs/robot/robot_idle_3.png" id="4_n0qc2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnupi"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l3y2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gff1i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lvhoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n0qc2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enbln"]
+size = Vector2(12, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3xbl"]
+size = Vector2(16, 25)
+
+[node name="Robot" type="CharacterBody2D"]
+scale = Vector2(-1, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fnupi")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.773332
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 6)
+shape = SubResource("RectangleShape2D_enbln")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 3.5)
+shape = SubResource("RectangleShape2D_r3xbl")
