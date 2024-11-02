@@ -12,6 +12,17 @@ public abstract partial class State : Node
 
 	public abstract State check_state_change(Node entity);
 
+	public void ComputeVelocity(Node entity)
+	{
+		// Check to see if we are the player
+		if (entity is Player){
+
+			// Cast the entity as a player
+			Player p = entity as Player;
+			p.Velocity = p.getPlayerInputForVelocity();
+		}
+	}
+
 	public Vector2 updateSpriteDirection(){
 
 		/*

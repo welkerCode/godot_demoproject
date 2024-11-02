@@ -58,6 +58,7 @@ public partial class Player : CharacterBody2D
 		Output: Vector2
 			-1 in the X field indicates moving left
 			1 in the X field indicates moving right
+			A vector of 0,0 will indicate that the joystick isn't being moved left or right
 		
 		*/
 	
@@ -73,71 +74,67 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Reset horizontal movement  TODO: Remove
-		_next_velocity = Velocity;
-		_next_velocity.X = 0;
-
 		// Call the state machine
 		_state_machine.Update(this);
 
-		// Get input for movement  TODO: Remove
-		if (Input.IsActionPressed("move_right"))
-		{
-			_next_velocity.X += _run_speed;  // Move right
-			_direction = "right";
-		}
-		if (Input.IsActionPressed("move_left"))
-		{
-			_next_velocity.X -= _run_speed;  // Move left
-			_direction = "left";
-		}
-
-		// Apply gravity
+		// Apply gravity and update velocity
+		_next_velocity = Velocity;
 		_next_velocity.Y += _gravity * (float)delta;
-
-		// TODO: Remove
-		if (IsOnFloor())
-		{
-			_double_jump_ready = true;
-		}
-
-		// Jumping
-		// TODO: Remove
-		if (IsOnFloor() && Input.IsActionJustPressed("move_jump"))
-		{
-			_next_velocity.Y = -_jump_force;  // Jump
-			//GD.print("Moving up");
-		}
-
-		// TODO: Remove
-		if (!IsOnFloor() && _double_jump_ready && Input.IsActionJustPressed("move_jump"))
-		{
-			_next_velocity.Y = -_jump_force; // Doublejump
-			//GD.print("Double jump");
-			_double_jump_ready = false;
-		}
-
-		// TODO: Make a state, and then remove
-		if (_dash_ready && Input.IsActionJustPressed("ui_dash"))
-		{
-			 
-			if (_direction == "right")
-			{
-				_next_velocity.X += _dash_speed;
-				//_dash_ready = false;
-			}
-			else if (_direction == "left")
-			{
-				_next_velocity.X -= _dash_speed;
-				//_dash_ready = false;
-			}
-		}
-
-		// Update velocity
 		Velocity = _next_velocity;
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public Vector2 getPlayerInputForVelocity(){
+		Vector2 new_velocity = new Vector2();
+		new_velocity.X = getHorizontalInput();
+		new_velocity.Y = getVerticalInput();
+		return new_velocity;
+	}
+
+	public float getHorizontalInput(){
+
+		float horizontalVelocity = 0;
+		bool add_dash = _dash_ready && Input.IsActionJustPressed("ui_dash");
+
+		if (Input.IsActionPressed("move_right"))
+		{
+			if (add_dash) horizontalVelocity += _dash_speed;
+			horizontalVelocity += _run_speed;
+		}
+		else if (Input.IsActionPressed("move_left"))
+		{
+			if (add_dash) horizontalVelocity -= _dash_speed;
+			horizontalVelocity -= _run_speed;
+		}
+		else
+		{
+			horizontalVelocity = 0;
+		}
+		return horizontalVelocity;
+	}
+
+	public float getVerticalInput(){
+		float verticalVelocity = this.Velocity.Y;
+
+		// Reset double jump if on ground
+		if (IsOnFloor()) _double_jump_ready = true; 
+		
+		// Add jump force if jumping
+		if (IsOnFloor() && Input.IsActionJustPressed("move_jump"))
+		{
+			verticalVelocity = -_jump_force;  // Jump
+		}
+
+		// Add jump force if double jumping
+		if (!IsOnFloor() && _double_jump_ready && Input.IsActionJustPressed("move_jump"))
+		{
+			verticalVelocity = -_jump_force; // Doublejump
+			_double_jump_ready = false; // Disable doublejump after doublejumping
+		}
+
+		return verticalVelocity;
 	}
 
 	public void ResetDoubleJump(){

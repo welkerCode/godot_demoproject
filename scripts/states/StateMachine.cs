@@ -23,7 +23,7 @@ public partial class StateMachine : Node
     {
         // Use the entity (player, enemy, etc...) to check the current state
         State newState = currentState.check_state_change(entity);
-
+        newState.ComputeVelocity(entity);
         // If we got a different state than what we are now, then change state
         if (newState != currentState)
         {

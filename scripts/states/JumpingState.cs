@@ -15,8 +15,9 @@ public partial class JumpingState : State
     public override void enter_state()
 	{
 		// This will contain the actions that should occur upon entering the state
+		// Update the animation
 		GD.Print("Entering Jumping State");
-		animatedSprite2D.Play("jump");
+		animatedSprite2D.Play("jump");		
 	}
 
 	public override void exit_state()
