@@ -12,7 +12,7 @@ public abstract partial class State : Node
 
 	public abstract State check_state_change(Node entity);
 
-	public void ComputeVelocity(Node entity)
+	public virtual void ComputeVelocity(Node entity)
 	{
 		// Check to see if we are the player
 		if (entity is Player){

@@ -4,9 +4,9 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	// Movement variables
-	[Export] private float _run_speed = 200f;  // Player speed
-	[Export] private float _jump_force = 300f;  // Jump force
-	[Export] private float _dash_speed = 2000; // Dash speed
+	[Export] public float _run_speed = 200f;  // Player speed
+	[Export] public float _jump_force = 300f;  // Jump force
+	[Export] public float _dash_speed = 2000; // Dash speed
 	[Export] private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();  // Gravity force
 	[Export] private int _originX = 0;
 	[Export] private int _originY = 0;
@@ -84,6 +84,15 @@ public partial class Player : CharacterBody2D
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public string getWhichWallCollided(){
+		for (int i = 0; i < GetSlideCollisionCount(); i++){
+			var collision = GetSlideCollision(i);
+			if (collision.GetNormal().X > 0) return "left";
+			else if (collision.GetNormal().X < 0) return "right";
+		}
+		return "none";
 	}
 
 	public Vector2 getPlayerInputForVelocity(){
