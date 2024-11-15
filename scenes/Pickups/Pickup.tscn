@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqjqcq1fwqanl"]
+[gd_scene load_steps=4 format=3 uid="uid://cqjqcq1fwqanl"]
 
 [ext_resource type="Script" path="res://scripts/pickups/Pickup.cs" id="1_8p2q8"]
+[ext_resource type="AudioStream" uid="uid://y1l5sdpejwbv" path="res://audio/effects/item_pickup.wav" id="2_2el2e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_os6kw"]
 
@@ -10,6 +11,8 @@ script = ExtResource("1_8p2q8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_os6kw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_2el2e")
+volume_db = -8.882
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -41,6 +41,7 @@ public partial class RunningState : State
 
 			// If we are jumping
 			if (p.IsJumping()){
+				p.playJumpSound();
 				return new JumpingState(animatedSprite2D); // Return the running state
 			}
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cle2utb86wvk3"]
+[gd_scene load_steps=23 format=3 uid="uid://cle2utb86wvk3"]
 
 [ext_resource type="Texture2D" uid="uid://cv87ilgxmeex1" path="res://Pixel Adventure 1/Free/Items/Fruits/Apple.png" id="1_dfods"]
 [ext_resource type="Script" path="res://scripts/pickups/PickupApple.cs" id="1_q4m53"]
+[ext_resource type="AudioStream" uid="uid://y1l5sdpejwbv" path="res://audio/effects/item_pickup.wav" id="3_w5ip2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nbfxx"]
 
@@ -141,5 +142,9 @@ shape = SubResource("CircleShape2D_nbfxx")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2qcgd")
 autoplay = "default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_w5ip2")
+volume_db = -10.361
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

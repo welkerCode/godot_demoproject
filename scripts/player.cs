@@ -21,6 +21,9 @@ public partial class Player : CharacterBody2D
 	private State _state;
 	private AnimatedSprite2D _animated_sprite;
 
+	[Export] private AudioStreamPlayer _jump_sound_effect;
+
+
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
 
 	private Vector2 _velocity;
@@ -37,7 +40,8 @@ public partial class Player : CharacterBody2D
 		_state_machine = new StateMachine();
 		IdleState idleState = new IdleState(this._animated_sprite);
 		_state_machine.ChangeState(idleState);
-
+		_jump_sound_effect = GetNode<AudioStreamPlayer>("jump");
+		
 		// Initialize player_control variable		
 		_double_jump_ready = true;
 		_dash_ready = true;
@@ -84,6 +88,13 @@ public partial class Player : CharacterBody2D
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public void playJumpSound(){
+		if (!_jump_sound_effect.Playing){
+			_jump_sound_effect.Stop();
+		}
+		_jump_sound_effect.Play();
 	}
 
 	public string getWhichWallCollided(){

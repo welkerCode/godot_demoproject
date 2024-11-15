@@ -7,6 +7,9 @@ public partial class Pickup : Area2D
 	[Export] private int Value = 1;
 	[Export] private string Pickup_Name = "Pickup";
 
+	private AudioStreamPlayer _audioPlayer;
+
+	public AudioStream PickupSound;
 
 	public Pickup(string name, int value)
 	{
@@ -17,7 +20,25 @@ public partial class Pickup : Area2D
     public override void _Ready()
     {
         GD.Print("Pickup " + Pickup_Name + " created with value: " + Value);
+		_audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+
+		if (_audioPlayer == null)
+		{
+			GD.PrintErr("No AudioStreamPlayer node found!");
+		}
+
+		if (PickupSound != null){
+			_audioPlayer.Stream = PickupSound;
+		}
     }
+
+	private void playPickupSound(){
+		if (_audioPlayer.Playing){
+			_audioPlayer.Stop();
+		}
+		_audioPlayer.Play();
+	}
+
 
     private void _on_body_entered(Node body)
 	{
@@ -33,6 +54,8 @@ public partial class Pickup : Area2D
 				p.update_score(Value);
 			}
 		}
+
+		playPickupSound();
 
 		QueueFree();
 	}

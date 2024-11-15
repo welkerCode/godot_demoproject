@@ -45,6 +45,8 @@ public partial class WallSlideState : State
 				// If we have clicked the 'jump' button
 				if (!p.IsOnFloor() && Input.IsActionJustPressed("move_jump")){
 
+					p.playJumpSound();
+
 					GD.Print("Wall JUMPING!!!!");
 					velocity.Y = -p._jump_force;
 
@@ -99,8 +101,14 @@ public partial class WallSlideState : State
 				if (!p.IsOnFloor())
 				{
 					// Then we are either jumping, double jumping or falling
-					if (p.IsJumping()) return new JumpingState(animatedSprite2D);
-					else if (p.IsDoubleJumping()) return new DoubleJumpingState(animatedSprite2D);
+					if (p.IsJumping()){
+						p.playJumpSound();
+						return new JumpingState(animatedSprite2D);
+					} 
+					else if (p.IsDoubleJumping()){
+						p.playJumpSound();
+						return new DoubleJumpingState(animatedSprite2D);
+					} 
 					else if (p.Velocity.Y > 0) return new FallingState(animatedSprite2D);
 				}				
 			}

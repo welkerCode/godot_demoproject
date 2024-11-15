@@ -17,7 +17,7 @@ public partial class JumpingState : State
 		// This will contain the actions that should occur upon entering the state
 		// Update the animation
 		GD.Print("Entering Jumping State");
-		animatedSprite2D.Play("jump");		
+		animatedSprite2D.Play("jump");
 	}
 
 	public override void exit_state()
@@ -43,6 +43,7 @@ public partial class JumpingState : State
 			// If we are double jumping
 			if(p.IsDoubleJumping())
 			{
+				p.playJumpSound();
 				return new DoubleJumpingState(animatedSprite2D);
 			}
 			// If we are touching a wall

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://c75y1hoaso4h6"]
+[gd_scene load_steps=55 format=3 uid="uid://c75y1hoaso4h6"]
 
 [ext_resource type="Texture2D" uid="uid://bs8g85vxrt1t5" path="res://Pixel Adventure 1/Free/Main Characters/Mask Dude/Idle (32x32).png" id="1_0ks46"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_5maoi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cfapd2hn7j6fe" path="res://Pixel Adventure 1/Free/Main Characters/Mask Dude/Jump (32x32).png" id="6_wrkox"]
 [ext_resource type="Texture2D" uid="uid://c4vxi467xrdhk" path="res://Pixel Adventure 1/Free/Main Characters/Mask Dude/Run (32x32).png" id="7_u71el"]
 [ext_resource type="Texture2D" uid="uid://di4n026gg4r2p" path="res://Pixel Adventure 1/Free/Main Characters/Mask Dude/Wall Jump (32x32).png" id="8_smpxu"]
+[ext_resource type="AudioStream" uid="uid://do4u8qflsd7hc" path="res://audio/effects/649725__duskbreaker__8bit-jump.wav" id="9_03fgi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jmffc"]
 radius = 8.06226
@@ -371,3 +372,8 @@ autoplay = "idle"
 scale = Vector2(2, 2)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_03fgi")
+volume_db = -16.678
+pitch_scale = 0.28
