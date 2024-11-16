@@ -22,6 +22,7 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D _animated_sprite;
 
 	[Export] private AudioStreamPlayer _jump_sound_effect;
+	[Export] private AudioStreamPlayer _dash_sound_effect;
 
 
 	//private Vector2 velocity = new Vector2(x:Single = 0, y:Single = 0);  // Player velocity
@@ -40,7 +41,8 @@ public partial class Player : CharacterBody2D
 		_state_machine = new StateMachine();
 		IdleState idleState = new IdleState(this._animated_sprite);
 		_state_machine.ChangeState(idleState);
-		_jump_sound_effect = GetNode<AudioStreamPlayer>("jump");
+		_jump_sound_effect = GetNode<AudioStreamPlayer>("jump_sound");
+		_dash_sound_effect = GetNode<AudioStreamPlayer>("dash_sound");
 		
 		// Initialize player_control variable		
 		_double_jump_ready = true;
@@ -97,6 +99,13 @@ public partial class Player : CharacterBody2D
 		_jump_sound_effect.Play();
 	}
 
+	public void playDashSound(){
+		if (!_dash_sound_effect.Playing){
+			_dash_sound_effect.Stop();
+		}
+		_dash_sound_effect.Play();
+	}
+
 	public string getWhichWallCollided(){
 		for (int i = 0; i < GetSlideCollisionCount(); i++){
 			var collision = GetSlideCollision(i);
@@ -132,6 +141,7 @@ public partial class Player : CharacterBody2D
 		{
 			horizontalVelocity = 0;
 		}
+		if (add_dash) playDashSound();
 		return horizontalVelocity;
 	}
 
@@ -145,6 +155,7 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor() && Input.IsActionJustPressed("move_jump"))
 		{
 			verticalVelocity = -_jump_force;  // Jump
+			playJumpSound();
 		}
 
 		// Add jump force if double jumping
@@ -152,6 +163,7 @@ public partial class Player : CharacterBody2D
 		{
 			verticalVelocity = -_jump_force; // Doublejump
 			_double_jump_ready = false; // Disable doublejump after doublejumping
+			playJumpSound();
 		}
 
 		return verticalVelocity;

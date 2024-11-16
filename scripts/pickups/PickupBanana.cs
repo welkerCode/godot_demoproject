@@ -3,10 +3,9 @@ using System;
 
 public partial class PickupBanana : Pickup
 {
-	// Constructor to create a banana pickup
-	public PickupBanana() : base("Banana", 2)
-	{
-	}	
+
+	[Export] private int Value = 2;
+	[Export] private string Pickup_Name = "Banana";
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

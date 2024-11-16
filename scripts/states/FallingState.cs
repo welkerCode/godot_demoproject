@@ -42,7 +42,6 @@ public partial class FallingState : State
 			// If we are double jumping
 			if(p.IsDoubleJumping())
 			{
-				p.playJumpSound();
 				return new DoubleJumpingState(animatedSprite2D);
 			}
 			// If we are touching a wall

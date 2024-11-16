@@ -5,14 +5,17 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_os6kw"]
 
-[node name="Pickup" type="Area2D"]
+[node name="Pickup" type="Area2D" node_paths=PackedStringArray("SoundPlayer")]
 script = ExtResource("1_8p2q8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_os6kw")
+SoundPlayer = NodePath("AudioStreamPlayer")
+PickupSound = ExtResource("2_2el2e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_2el2e")
 volume_db = -8.882
+pitch_scale = 1.95
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_os6kw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
