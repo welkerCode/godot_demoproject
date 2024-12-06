@@ -83,6 +83,9 @@ public partial class Player : CharacterBody2D
 		// Call the state machine
 		_state_machine.Update(this);
 
+		// Check Gravity
+		check_gravity();
+
 		// Apply gravity and update velocity
 		_next_velocity = Velocity;
 		_next_velocity.Y += _gravity * (float)delta;
@@ -90,6 +93,16 @@ public partial class Player : CharacterBody2D
 
 		// Move the player
 		MoveAndSlide();
+	}
+
+	public void check_gravity(){
+		if (Input.IsActionPressed("ui_increase_gravity")){
+			if (_gravity <= ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle()) { _gravity += 3;}
+		}
+		else if (Input.IsActionPressed("ui_decrease_gravity")){
+			if (_gravity > 0) { _gravity -= 3;}
+		}
+
 	}
 
 	public void playJumpSound(){
