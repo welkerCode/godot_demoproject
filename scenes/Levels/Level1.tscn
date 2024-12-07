@@ -377,4 +377,4 @@ position = Vector2(999, -57)
 [node name="Robot" parent="." instance=ExtResource("13_f02sp")]
 position = Vector2(3112, -350)
 
-[connection signal="body_entered" from="DangerZone/Area2D" to="DangerZone" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="DangerZone/Area2D" to="DangerZone" method="body_entered"]

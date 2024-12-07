@@ -8,7 +8,7 @@ public partial class DangerZone : Node2D
 	public override void _Ready()
 	{
 		GD.Print("Danger Zone ready");
-		Connect("body_entered", new Callable(this, nameof(_on_area_2d_body_entered)));
+		Connect("body_entered", new Callable(this, nameof(body_entered)));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +16,7 @@ public partial class DangerZone : Node2D
 	//{
 	//}
 	
-	private void _on_area_2d_body_entered(Node body)
+	private void body_entered(Node body)
 	{
 		GD.Print("Body: " + body + " has entered...");
 		GD.Print("Body Class: " + body.GetClass());

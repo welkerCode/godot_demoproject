@@ -9,7 +9,12 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
-        levelRoot = GetNode<Node2D>("../LevelRoot"); // Adjust path to your LevelRoot
+        levels = new PackedScene[]
+        {
+            GD.Load<PackedScene>("res://scenes/Levels/Level1.tscn")
+        };
+
+        levelRoot = GetNode<Node2D>("/root/Game/LevelRoot"); // Adjust path to your LevelRoot
         LoadLevel(currentLevelIndex);
     }
 

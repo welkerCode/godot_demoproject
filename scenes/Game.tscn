@@ -1,16 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw5n4pc8xsdim"]
+[gd_scene load_steps=2 format=3 uid="uid://dw5n4pc8xsdim"]
 
-[ext_resource type="Script" path="res://scripts/GameManager.cs" id="2_7tm66"]
-[ext_resource type="PackedScene" uid="uid://cdqmviohjwlj4" path="res://scenes/Levels/Level1.tscn" id="3_si8fa"]
 [ext_resource type="PackedScene" uid="uid://c75y1hoaso4h6" path="res://scenes/Player.tscn" id="11_u1w76"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("11_u1w76")]
 position = Vector2(3, -3)
-
-[node name="GameManager" type="Node" parent="."]
-script = ExtResource("2_7tm66")
-levels = Array[PackedScene]([ExtResource("3_si8fa")])
 
 [node name="LevelRoot" type="Node2D" parent="."]
